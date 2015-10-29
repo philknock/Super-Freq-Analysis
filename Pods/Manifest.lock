@@ -1,17 +1,10 @@
 PODS:
-  - EZAudio (1.1.2):
-    - EZAudio/Full (= 1.1.2)
-  - EZAudio/Core (1.1.2)
-  - EZAudio/Full (1.1.2):
-    - EZAudio/Core
-    - TPCircularBuffer (~> 0.0)
-  - TPCircularBuffer (0.0.1)
+  - AFNetworking (1.3.4)
 
 DEPENDENCIES:
-  - EZAudio (~> 1.1.2)
+  - AFNetworking (~> 1.0)
 
 SPEC CHECKSUMS:
-  EZAudio: 01373de2b1257b77be1bf13753fb1c4ea8a9777e
-  TPCircularBuffer: 949e9632b9fb99b7274d7b2296ee22bff5841e35
+  AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
 
 COCOAPODS: 0.36.4

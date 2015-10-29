@@ -6,27 +6,9 @@
 // project.
 
 
-// EZAudio
-#define COCOAPODS_POD_AVAILABLE_EZAudio
-#define COCOAPODS_VERSION_MAJOR_EZAudio 1
-#define COCOAPODS_VERSION_MINOR_EZAudio 1
-#define COCOAPODS_VERSION_PATCH_EZAudio 2
-
-// EZAudio/Core
-#define COCOAPODS_POD_AVAILABLE_EZAudio_Core
-#define COCOAPODS_VERSION_MAJOR_EZAudio_Core 1
-#define COCOAPODS_VERSION_MINOR_EZAudio_Core 1
-#define COCOAPODS_VERSION_PATCH_EZAudio_Core 2
-
-// EZAudio/Full
-#define COCOAPODS_POD_AVAILABLE_EZAudio_Full
-#define COCOAPODS_VERSION_MAJOR_EZAudio_Full 1
-#define COCOAPODS_VERSION_MINOR_EZAudio_Full 1
-#define COCOAPODS_VERSION_PATCH_EZAudio_Full 2
-
-// TPCircularBuffer
-#define COCOAPODS_POD_AVAILABLE_TPCircularBuffer
-#define COCOAPODS_VERSION_MAJOR_TPCircularBuffer 0
-#define COCOAPODS_VERSION_MINOR_TPCircularBuffer 0
-#define COCOAPODS_VERSION_PATCH_TPCircularBuffer 1
+// AFNetworking
+#define COCOAPODS_POD_AVAILABLE_AFNetworking
+#define COCOAPODS_VERSION_MAJOR_AFNetworking 1
+#define COCOAPODS_VERSION_MINOR_AFNetworking 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking 4
 

@@ -3,7 +3,7 @@
 
 target 'Super Freq Analysis' do
 
-     pod 'EZAudio', '~> 1.1.2' 
+	pod 'AFNetworking', '~> 1.0'
 
 end
 
