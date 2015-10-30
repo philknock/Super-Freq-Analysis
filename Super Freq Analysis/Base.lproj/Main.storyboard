@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--First-->
+        <!--Graphs-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="FFTViewController" sceneMemberID="viewController">
@@ -17,12 +18,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CIq-kH-JA3" userLabel="Time Plot" customClass="EZAudioPlot">
-                                <rect key="frame" x="0.0" y="3" width="375" height="320"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CIq-kH-JA3" userLabel="Time Plot" customClass="EZAudioPlot">
+                                <rect key="frame" x="0.0" y="20" width="600" height="303"/>
                                 <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ego-3Y-Cta">
-                                        <rect key="frame" x="8" y="8" width="123" height="29"/>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ego-3Y-Cta">
+                                        <rect key="frame" x="8" y="11" width="123" height="29"/>
+                                        <animations/>
                                         <color key="backgroundColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="123" id="a4w-pc-jA1"/>
+                                        </constraints>
                                         <segments>
                                             <segment title="Buffer"/>
                                             <segment title="Rolling"/>
@@ -32,11 +37,14 @@
                                         </connections>
                                     </segmentedControl>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="8kK-pv-f0r"/>
-                                    <constraint firstAttribute="height" constant="295" id="9cx-F3-xhU"/>
+                                    <constraint firstItem="Ego-3Y-Cta" firstAttribute="top" secondItem="CIq-kH-JA3" secondAttribute="topMargin" constant="3" id="8CP-ip-cf6"/>
+                                    <constraint firstAttribute="width" constant="600" id="8kK-pv-f0r"/>
+                                    <constraint firstAttribute="height" constant="303" id="9cx-F3-xhU"/>
+                                    <constraint firstItem="Ego-3Y-Cta" firstAttribute="leading" secondItem="CIq-kH-JA3" secondAttribute="leadingMargin" id="dm5-QZ-fcA"/>
                                     <constraint firstAttribute="height" constant="100" id="vlt-Hq-3M9"/>
                                 </constraints>
                                 <variation key="default">
@@ -45,21 +53,23 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vdm-GZ-MxI" userLabel="Freq Plot" customClass="EZAudioPlot">
-                                <rect key="frame" x="16" y="338" width="568" height="272"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vdm-GZ-MxI" userLabel="Freq Plot" customClass="EZAudioPlot">
+                                <rect key="frame" x="0.0" y="338" width="600" height="272"/>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="295" id="XEu-ep-68D"/>
+                                    <constraint firstAttribute="height" constant="272" id="XEu-ep-68D"/>
                                 </constraints>
                             </view>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Vdm-GZ-MxI" secondAttribute="trailing" id="364-m3-q4x"/>
-                            <constraint firstItem="Vdm-GZ-MxI" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="6a2-RW-6L6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Vdm-GZ-MxI" secondAttribute="trailing" constant="-20" id="364-m3-q4x"/>
+                            <constraint firstItem="Vdm-GZ-MxI" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="6a2-RW-6L6"/>
                             <constraint firstItem="CIq-kH-JA3" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="OOn-eK-h52"/>
-                            <constraint firstItem="CIq-kH-JA3" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="WUt-Jt-Gaf"/>
-                            <constraint firstItem="Vdm-GZ-MxI" firstAttribute="top" secondItem="CIq-kH-JA3" secondAttribute="bottom" id="Z6D-M4-RKr"/>
+                            <constraint firstItem="CIq-kH-JA3" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-20" id="WUt-Jt-Gaf"/>
+                            <constraint firstItem="Vdm-GZ-MxI" firstAttribute="top" secondItem="CIq-kH-JA3" secondAttribute="bottom" constant="15" id="Z6D-M4-RKr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CIq-kH-JA3" secondAttribute="trailing" id="ZgK-MP-dnm"/>
                             <constraint firstItem="CIq-kH-JA3" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="ovt-Bk-bJ1"/>
                             <constraint firstItem="CIq-kH-JA3" firstAttribute="top" secondItem="Vdm-GZ-MxI" secondAttribute="top" constant="-335" id="oyt-YG-3cf"/>
@@ -72,7 +82,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Graphs" image="GraphTab" selectedImage="GraphTab" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="audioPlotFreq" destination="Vdm-GZ-MxI" id="ADW-Ul-791"/>
                         <outlet property="audioPlotTime" destination="CIq-kH-JA3" id="U7S-8G-ECA"/>
@@ -80,9 +90,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750.5" y="-365.5"/>
+            <point key="canvasLocation" x="750" y="-366"/>
         </scene>
-        <!--Second-->
+        <!--Data-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SecondViewController" sceneMemberID="viewController">
@@ -94,20 +104,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="195" y="279" width="210" height="42"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
+                                <rect key="frame" x="195" y="280" width="210" height="42"/>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="192" y="329" width="216" height="17"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
+                                <rect key="frame" x="192" y="330" width="216" height="17"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
@@ -116,7 +129,7 @@
                             <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Data" image="DataTab" selectedImage="DataTab" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
@@ -127,10 +140,12 @@
             <objects>
                 <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
@@ -152,15 +167,17 @@
                     <view key="view" contentMode="scaleToFill" id="uGp-qb-Ilb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Va-nU-FAV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-708" y="-6"/>
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="DataTab" width="30" height="30"/>
+        <image name="GraphTab" width="30" height="30"/>
     </resources>
 </document>

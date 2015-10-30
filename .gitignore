@@ -1,0 +1,11 @@
+# Xcode 
+xcuserdata
+DerivedData
+*.xccheckout
+*.pbxuser
+
+# CocoaPods
+Pods
+
+# OSX
+.DS_Store

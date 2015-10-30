@@ -65,6 +65,13 @@ int bufferRollingValue;
         NSLog(@"Error setting up audio session active: %@", error.localizedDescription);
     }
     
+    CAGradientLayer *backgroundGradient = [CAGradientLayer layer];
+    backgroundGradient.frame = self.view.bounds;
+    backgroundGradient.colors = [NSArray arrayWithObjects:
+                                (id)[[UIColor colorWithRed:(44/255.0) green:(44/255.0) blue:(44/255.0) alpha:1.0] CGColor],
+                                (id)[[UIColor colorWithRed:(183/255.0) green:(183/255.0) blue:(183/255.0) alpha:1.0] CGColor], nil];
+    [self.view.layer insertSublayer:backgroundGradient atIndex:0];
+    
     // Initializing Values
     bufferRollingValue = 0;
     
@@ -74,6 +81,8 @@ int bufferRollingValue;
     
     self.audioPlotTime.plotType = EZPlotTypeBuffer;
     self.audioPlotTime.shouldMirror = YES;
+    
+    self.audioPlotTime.color = [UIColor colorWithRed:(223/255.0) green:(53/255.0) blue:(53/255.0) alpha:1.0];
     
     self.maxFrequencyLabel.numberOfLines = 0;
     //[self.audioPlotTime setGain:50.0];
@@ -85,6 +94,8 @@ int bufferRollingValue;
     self.audioPlotFreq.plotType = EZPlotTypeBuffer;
     self.audioPlotFreq.shouldCenterYAxis = NO;
     [self.audioPlotFreq setGain:20.0];
+    
+    self.audioPlotFreq.color = [UIColor colorWithRed:(223/255.0) green:(53/255.0) blue:(53/255.0) alpha:1.0];
     
     //
     // Create an instance of the microphone and tell it to use this view controller instance as the delegate
