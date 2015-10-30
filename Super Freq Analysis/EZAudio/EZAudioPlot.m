@@ -117,7 +117,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     self.gain = 1.0;
     self.plotType = EZPlotTypeBuffer;
     self.shouldMirror = NO;
-    self.shouldFill = NO;
+    self.shouldFill = YES;
     
     // Setup history window
     [self resetHistoryBuffers];
@@ -130,7 +130,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     self.waveformLayer.opaque = YES;
     
 #if TARGET_OS_IPHONE
-    self.color = [UIColor colorWithHue:0 saturation:1.0 brightness:1.0 alpha:1.0]; 
+    self.color = [UIColor colorWithHue:0 saturation:1.0 brightness:1.0 alpha:1.0];
 #elif TARGET_OS_MAC
     self.color = [NSColor colorWithCalibratedHue:0 saturation:1.0 brightness:1.0 alpha:1.0];
     self.wantsLayer = YES;
@@ -271,7 +271,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     if (pointCount > 0)
     {
         path = CGPathCreateMutable();
-        double xscale = (rect.size.width) / ((float)self.pointCount);
+        double xscale = (rect.size.width) / (((float)self.pointCount)/5);
         double halfHeight = floor(rect.size.height / 2.0);
         int deviceOriginFlipped = [self isDeviceOriginFlipped] ? -1 : 1;
         CGAffineTransform xf = CGAffineTransformIdentity;
