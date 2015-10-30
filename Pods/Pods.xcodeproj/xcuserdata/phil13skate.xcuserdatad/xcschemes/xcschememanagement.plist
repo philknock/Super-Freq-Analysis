@@ -8,25 +8,21 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>Pods-Super Freq Analysis.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>A53F8B1BE31C016900519FFF</key>
+		<key>628B38CC2F4D6083532BDAD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D2CED65E2AEC017B8498749C</key>
+		<key>E536EAF9DB59AF2481D2D04C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
