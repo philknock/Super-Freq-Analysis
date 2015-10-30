@@ -27,13 +27,13 @@
 		676C5F221BE2CCB10061FF4D /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 676C5F0D1BE2CCB10061FF4D /* TPCircularBuffer.c */; };
 		676C5F231BE2CCB10061FF4D /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = 676C5F101BE2CCB10061FF4D /* CHANGELOG */; };
 		676C5F241BE2CCB10061FF4D /* VERSION in Resources */ = {isa = PBXBuildFile; fileRef = 676C5F111BE2CCB10061FF4D /* VERSION */; };
+		676C5F261BE2D4470061FF4D /* FFTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 676C5F251BE2D4470061FF4D /* FFTViewController.m */; };
 		679771631BD857630026A01F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679771621BD857630026A01F /* Accelerate.framework */; };
 		679771651BD8577D0026A01F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679771641BD8577D0026A01F /* AudioToolbox.framework */; };
 		679771691BD857A20026A01F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679771681BD857A20026A01F /* AVFoundation.framework */; };
 		6797716B1BD857AE0026A01F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6797716A1BD857AE0026A01F /* GLKit.framework */; };
 		67FCDD1E1BD7FCFB00B4CD94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FCDD1D1BD7FCFB00B4CD94 /* main.m */; };
 		67FCDD211BD7FCFB00B4CD94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FCDD201BD7FCFB00B4CD94 /* AppDelegate.m */; };
-		67FCDD241BD7FCFB00B4CD94 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FCDD231BD7FCFB00B4CD94 /* FirstViewController.m */; };
 		67FCDD271BD7FCFB00B4CD94 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FCDD261BD7FCFB00B4CD94 /* SecondViewController.m */; };
 		67FCDD2A1BD7FCFB00B4CD94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67FCDD281BD7FCFB00B4CD94 /* Main.storyboard */; };
 		67FCDD2C1BD7FCFB00B4CD94 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67FCDD2B1BD7FCFB00B4CD94 /* Images.xcassets */; };
@@ -91,6 +91,8 @@
 		676C5F0E1BE2CCB10061FF4D /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
 		676C5F101BE2CCB10061FF4D /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
 		676C5F111BE2CCB10061FF4D /* VERSION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
+		676C5F251BE2D4470061FF4D /* FFTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFTViewController.m; sourceTree = "<group>"; };
+		676C5F271BE2D4780061FF4D /* FFTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFTViewController.h; sourceTree = "<group>"; };
 		679771621BD857630026A01F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		679771641BD8577D0026A01F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		679771661BD8578A0026A01F /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
@@ -101,8 +103,6 @@
 		67FCDD1D1BD7FCFB00B4CD94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		67FCDD1F1BD7FCFB00B4CD94 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		67FCDD201BD7FCFB00B4CD94 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		67FCDD221BD7FCFB00B4CD94 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		67FCDD231BD7FCFB00B4CD94 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		67FCDD251BD7FCFB00B4CD94 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		67FCDD261BD7FCFB00B4CD94 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		67FCDD291BD7FCFB00B4CD94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -237,8 +237,8 @@
 				676C5EEB1BE2CCB10061FF4D /* EZAudio */,
 				67FCDD1F1BD7FCFB00B4CD94 /* AppDelegate.h */,
 				67FCDD201BD7FCFB00B4CD94 /* AppDelegate.m */,
-				67FCDD221BD7FCFB00B4CD94 /* FirstViewController.h */,
-				67FCDD231BD7FCFB00B4CD94 /* FirstViewController.m */,
+				676C5F251BE2D4470061FF4D /* FFTViewController.m */,
+				676C5F271BE2D4780061FF4D /* FFTViewController.h */,
 				67FCDD251BD7FCFB00B4CD94 /* SecondViewController.h */,
 				67FCDD261BD7FCFB00B4CD94 /* SecondViewController.m */,
 				67FCDD281BD7FCFB00B4CD94 /* Main.storyboard */,
@@ -423,13 +423,13 @@
 				67FCDD211BD7FCFB00B4CD94 /* AppDelegate.m in Sources */,
 				676C5F1C1BE2CCB10061FF4D /* EZAudioUtilities.m in Sources */,
 				676C5F1F1BE2CCB10061FF4D /* EZPlot.m in Sources */,
-				67FCDD241BD7FCFB00B4CD94 /* FirstViewController.m in Sources */,
 				676C5F201BE2CCB10061FF4D /* EZRecorder.m in Sources */,
 				676C5F141BE2CCB10061FF4D /* EZAudioDisplayLink.m in Sources */,
 				676C5F131BE2CCB10061FF4D /* EZAudioDevice.m in Sources */,
 				676C5F191BE2CCB10061FF4D /* EZAudioPlayer.m in Sources */,
 				676C5F1D1BE2CCB10061FF4D /* EZMicrophone.m in Sources */,
 				67FCDD1E1BD7FCFB00B4CD94 /* main.m in Sources */,
+				676C5F261BE2D4470061FF4D /* FFTViewController.m in Sources */,
 				676C5F121BE2CCB10061FF4D /* EZAudio.m in Sources */,
 				676C5F221BE2CCB10061FF4D /* TPCircularBuffer.c in Sources */,
 				676C5F171BE2CCB10061FF4D /* EZAudioFloatConverter.m in Sources */,
