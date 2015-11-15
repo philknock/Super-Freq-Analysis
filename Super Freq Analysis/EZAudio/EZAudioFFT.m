@@ -161,12 +161,12 @@ typedef struct EZAudioFFTInfo
     //
     vDSP_Length log2n = log2f(bufferSize);
     long nOver2 = bufferSize / 2;
-    float mFFTNormFactor = 10.0 / (2 * bufferSize);
+    float mFFTNormFactor = 10.0 / (2 * bufferSize); // 0.5 / bufferSize;
     vDSP_ctoz((COMPLEX*)buffer, 2, &(self.info->complexA), 1, nOver2);
     vDSP_fft_zrip(self.info->fftSetup, &(self.info->complexA), 1, log2n, FFT_FORWARD);
     vDSP_vsmul(self.info->complexA.realp, 1, &mFFTNormFactor, self.info->complexA.realp, 1, nOver2);
     vDSP_vsmul(self.info->complexA.imagp, 1, &mFFTNormFactor, self.info->complexA.imagp, 1, nOver2);
-    vDSP_zvmags(&(self.info->complexA), 1, self.info->outFFTData, 1, nOver2);
+    vDSP_zvabs(&(self.info->complexA), 1, self.info->outFFTData, 1, nOver2);
     vDSP_fft_zrip(self.info->fftSetup, &(self.info->complexA), 1, log2n, FFT_INVERSE);
     vDSP_ztoc(&(self.info->complexA), 1, (COMPLEX *) self.info->inversedFFTData , 2, nOver2);
     self.info->outFFTDataLength = nOver2;

@@ -93,7 +93,7 @@ int bufferRollingValue;
     self.audioPlotFreq.shouldFill = YES;
     self.audioPlotFreq.plotType = EZPlotTypeBuffer;
     self.audioPlotFreq.shouldCenterYAxis = NO;
-    [self.audioPlotFreq setGain:20.0];
+    
     
     self.audioPlotFreq.color = [UIColor colorWithRed:(223/255.0) green:(53/255.0) blue:(53/255.0) alpha:1.0];
     
@@ -108,6 +108,8 @@ int bufferRollingValue;
     self.fft = [EZAudioFFTRolling fftWithWindowSize:FFTViewControllerFFTWindowSize
                                          sampleRate:self.microphone.audioStreamBasicDescription.mSampleRate
                                            delegate:self];
+    
+    
     
     //
     // Start the mic
