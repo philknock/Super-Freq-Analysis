@@ -308,11 +308,13 @@ typedef struct
             points[i * 2].x = points[i * 2 + 1].x = i;
             points[i * 2].y = data[i];
             points[i * 2 + 1].y = 0.0f;
+            // Modify Here for dB scale!
         }
         else
         {
             points[i].x = i;
             points[i].y = data[i];
+           
         }
     }
     points[0].y = points[pointCount - 1].y = 0.0f;
