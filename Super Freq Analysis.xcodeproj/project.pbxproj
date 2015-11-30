@@ -31,6 +31,7 @@
 		679771651BD8577D0026A01F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679771641BD8577D0026A01F /* AudioToolbox.framework */; };
 		679771691BD857A20026A01F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679771681BD857A20026A01F /* AVFoundation.framework */; };
 		6797716B1BD857AE0026A01F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6797716A1BD857AE0026A01F /* GLKit.framework */; };
+		67F15A571C0B7F6500FD565B /* ImpulseInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67F15A561C0B7F6500FD565B /* ImpulseInfoViewController.m */; };
 		67FCDD1E1BD7FCFB00B4CD94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FCDD1D1BD7FCFB00B4CD94 /* main.m */; };
 		67FCDD211BD7FCFB00B4CD94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FCDD201BD7FCFB00B4CD94 /* AppDelegate.m */; };
 		67FCDD271BD7FCFB00B4CD94 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FCDD261BD7FCFB00B4CD94 /* SecondViewController.m */; };
@@ -98,6 +99,8 @@
 		679771661BD8578A0026A01F /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		679771681BD857A20026A01F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6797716A1BD857AE0026A01F /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		67F15A551C0B7F6500FD565B /* ImpulseInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImpulseInfoViewController.h; sourceTree = "<group>"; };
+		67F15A561C0B7F6500FD565B /* ImpulseInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImpulseInfoViewController.m; sourceTree = "<group>"; };
 		67FCDD181BD7FCFB00B4CD94 /* Super Freq Analysis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Super Freq Analysis.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67FCDD1C1BD7FCFB00B4CD94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67FCDD1D1BD7FCFB00B4CD94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -241,6 +244,8 @@
 				676C5F271BE2D4780061FF4D /* FFTViewController.h */,
 				67FCDD251BD7FCFB00B4CD94 /* SecondViewController.h */,
 				67FCDD261BD7FCFB00B4CD94 /* SecondViewController.m */,
+				67F15A551C0B7F6500FD565B /* ImpulseInfoViewController.h */,
+				67F15A561C0B7F6500FD565B /* ImpulseInfoViewController.m */,
 				67FCDD281BD7FCFB00B4CD94 /* Main.storyboard */,
 				67FCDD2B1BD7FCFB00B4CD94 /* Images.xcassets */,
 				67FCDD2D1BD7FCFB00B4CD94 /* LaunchScreen.xib */,
@@ -287,7 +292,6 @@
 				67FCDD151BD7FCFB00B4CD94 /* Frameworks */,
 				67FCDD161BD7FCFB00B4CD94 /* Resources */,
 				8D3F03079A36154E68BE2AE8 /* Copy Pods Resources */,
-				20FD87E584619662B4BBA9B8 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -377,21 +381,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		20FD87E584619662B4BBA9B8 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Super Freq Analysis/Pods-Super Freq Analysis-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8D3F03079A36154E68BE2AE8 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -449,6 +438,7 @@
 				676C5F121BE2CCB10061FF4D /* EZAudio.m in Sources */,
 				676C5F221BE2CCB10061FF4D /* TPCircularBuffer.c in Sources */,
 				676C5F171BE2CCB10061FF4D /* EZAudioFloatConverter.m in Sources */,
+				67F15A571C0B7F6500FD565B /* ImpulseInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

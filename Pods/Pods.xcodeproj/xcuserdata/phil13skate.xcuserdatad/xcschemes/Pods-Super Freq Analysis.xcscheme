@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "628B38CC2F4D6083532BDAD8"
+               BlueprintIdentifier = "EEF7B94C0C1F7C5DF2467285"
                BuildableName = "libPods-Super Freq Analysis.a"
                BlueprintName = "Pods-Super Freq Analysis"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Super Freq Analysis-MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Super Freq Analysis.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>628B38CC2F4D6083532BDAD8</key>
+		<key>3561B3029DC400799BDCD2C5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E536EAF9DB59AF2481D2D04C</key>
+		<key>4FADC62F85F59C3A8DB6EAFF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EEF7B94C0C1F7C5DF2467285</key>
 		<dict>
 			<key>primary</key>
 			<true/>
