@@ -8,8 +8,26 @@
 
 
 #import "SecondViewController.h"
+#import "MBProgressHUD.h"
+
+
 
 @implementation SecondViewController
+
+NSString* customFileName = kAudioFilePath;
+BOOL halfSecondElapsed = NO;
+BOOL threesElapsed = NO;
+BOOL recordingImpulse = NO;
+float dB;
+float peakdB;
+float startTime;
+float elapsedTime;
+float rms = 0.0;
+float accumulator = 0.0;
+float deltaY = 0.0;
+float rt60Approx = 0.0;
+//float noiseFloor = 0.0;
+int count = 0;
 
 //------------------------------------------------------------------------------
 #pragma mark - Dealloc
@@ -36,8 +54,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     
-    [self.gainSlider setValue:(1.0/20.0)];
+    [self.gainSlider setValue:(1.0/10.0)];
     
     self.isRecording = NO;
     
@@ -69,7 +88,7 @@
     // Customizing the audio plot that'll show the current microphone input/recording
     //
     //self.recordingAudioPlot.backgroundColor = [UIColor colorWithRed: 0.984 green: 0.71 blue: 0.365 alpha: 1];
-    self.recordingAudioPlot.color           = [UIColor colorWithRed:(223/255.0) green:(53/255.0) blue:(53/255.0) alpha:1.0];
+    self.recordingAudioPlot.color           = [UIColor colorWithRed:(30/255.0) green:(30/255.0) blue:(30/255.0) alpha:1.0];
     self.recordingAudioPlot.backgroundColor =[UIColor colorWithRed:(183/255.0) green:(183/255.0) blue:(183/255.0) alpha:1.0];
     
     self.recordingAudioPlot.plotType        = EZPlotTypeRolling;
@@ -92,13 +111,15 @@
     //
     // Initialize UI components
     //
-    self.microphoneStateLabel.text = @"Microphone On";
-    self.recordingStateLabel.text = @"Not Recording";
-    self.playingStateLabel.text = @"Not Playing";
+
     self.playButton.enabled = NO;
+    [self.playButton setBackgroundColor:[UIColor grayColor]];
     
     self.recordButton.layer.cornerRadius = 10;
     self.recordButton.clipsToBounds = YES;
+    
+    self.playButton.layer.cornerRadius = 10;
+    self.playButton.clipsToBounds = YES;
     
     //
     // Setup notifications
@@ -115,8 +136,32 @@
     //
     [self.microphone startFetchingAudio];
     
-    
+    peakdB = -INFINITY;
+}
 
+
+- (void) viewDidAppear:(BOOL)animated{
+    
+    [self animateReadyLabel];
+    
+    //[self timingFunction : YES];
+    
+    NSTimer *halfSecondTimer = [NSTimer scheduledTimerWithTimeInterval: 0.2
+                                                  target: self
+                                                selector:@selector(halfSecondTick)
+                                                userInfo: nil repeats:YES];
+    
+    // Timer for resetting peak after time interval
+    NSTimer *threeTimer = [NSTimer scheduledTimerWithTimeInterval: 3.0
+                                                                target: self
+                                                              selector:@selector(threeTick)
+                                                              userInfo: nil repeats:YES];
+    
+}
+
+- (void) viewWillDisappear:(BOOL)animated{
+    
+    //[self timingFunction:NO];
 }
 
 //------------------------------------------------------------------------------
@@ -145,7 +190,7 @@
     {
         self.recorder.delegate = nil;
     }
-    self.playingStateLabel.text = isPlaying ? @"Playing" : @"Not Playing";
+
     self.playbackAudioPlot.hidden = !isPlaying;
 }
 
@@ -154,6 +199,8 @@
 - (void)playerDidReachEndOfFile:(NSNotification *)notification
 {
     [self.playbackAudioPlot clear];
+    [self.microphone startFetchingAudio];
+    
 }
 
 //------------------------------------------------------------------------------
@@ -162,13 +209,102 @@
 
 - (IBAction)gainAdjusted:(id)sender {
     
-    [self.recordingAudioPlot setGain:(20 * self.gainSlider.value)];
-    [self.playbackAudioPlot setGain:(20 * self.gainSlider.value)];
+    [self.recordingAudioPlot setGain:(10 * self.gainSlider.value)];
+    [self.playbackAudioPlot setGain:(10 * self.gainSlider.value)];
     
+}
+
+
+
+- (IBAction)alertButtonPressed:(id)sender {
+    NSLog(@"Alert Button Pressed");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"FileName" message:@"Please enter a name for the audio file. Press the info button to see how to access it." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
+
+- (IBAction)recordButtonPressed:(id)sender {
+    
+    peakdB = -INFINITY;
+    
+    [self.player pause];
+    
+    [self.readyLabel setHidden:YES];
+    
+    if (self.isRecording) {
+        
+        // If RT60 is measured from when the user stops recording
+        
+//        elapsedTime = CACurrentMediaTime() - startTime;
+//
+//        NSLog(@"Duration: %lf", elapsedTime);
+//
+        
+        [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+        
+        
+        [self.playButton setBackgroundColor:[UIColor blueColor]];
+        self.playButton.enabled = YES;
+        
+        [self.microphone stopFetchingAudio];
+        //[self.recordingAudioPlot clear];
+        
+        [self.recorder closeAudioFile];
+        
+        // Fancy Progress HUD
+        
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view.superview];
+        [self.view.superview addSubview:HUD];
+        
+        HUD.delegate = self;
+        HUD.labelText = @"Saving File ...";
+        HUD.dimBackground = YES;
+        
+        [HUD showWhileExecuting:@selector(sleepyTime) onTarget:self withObject:nil animated:YES];
+        
+        elapsedTime = 0.0;
+        
+        recordingImpulse = NO;
+        
+        [self.rt60Label setText: [[NSNumber numberWithFloat:rt60Approx] stringValue]];
+    }
+    else{
+        
+        [self.recordButton setTitle:@"Stop" forState:UIControlStateNormal];
+        
+        count = 0;
+        accumulator = 0;
+        
+        //
+        // Create the recorder
+        //
+        [self.recordingAudioPlot clear];
+        
+        [self.recordingAudioPlot setGain:(10 * self.gainSlider.value)];
+        [self.playbackAudioPlot setGain:(10 * self.gainSlider.value)];
+        
+        self.recordingAudioPlot.color = [UIColor colorWithRed:(223/255.0) green:(53/255.0) blue:(53/255.0) alpha:1.0];
+        
+        [self.microphone startFetchingAudio];
+        self.recorder = [EZRecorder recorderWithURL:[self customURL]
+                                       clientFormat:[self.microphone audioStreamBasicDescription]
+                                           fileType:EZRecorderFileTypeM4A
+                                           delegate:self];
+        
+        
+    }
+    
+    // Yeah, you toggle that Boolean
+    self.isRecording = !self.isRecording;
 }
 
 - (void)playFile:(id)sender
 {
+    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+    
+    [self.recordingAudioPlot setGain:(10 * self.gainSlider.value)];
+    [self.playbackAudioPlot setGain:(10 * self.gainSlider.value)];
+    
     //
     // Update microphone state
     //
@@ -178,9 +314,6 @@
     // Update recording state
     //
     self.isRecording = NO;
-    self.recordingStateLabel.text = @"Not Recording";
-    self.recordSwitch.on = NO;
-    
     //
     // Close the audio file
     //
@@ -189,80 +322,55 @@
         [self.recorder closeAudioFile];
     }
     
-    EZAudioFile *audioFile = [EZAudioFile audioFileWithURL:[self testFilePathURL]];
+//    EZAudioFile *audioFile = [EZAudioFile audioFileWithURL:[self testFilePathURL]];
+//    [self.player playAudioFile:audioFile];
+
+    EZAudioFile *audioFile = [EZAudioFile audioFileWithURL:[self customURL]];
     [self.player playAudioFile:audioFile];
     
-//    [[NSFileManager defaultManager] createFileAtPath:(NSString*)[self testFilePathURL]
+    [self.recordingAudioPlot clear];
+    
+    recordingImpulse = NO;
+    
+//    [[NSFileManager defaultManager] createFileAtPath:(NSString*)[self customURL]
 //                                            contents:(NSData*)audioFile
 //                                          attributes:nil];
 }
 
-//------------------------------------------------------------------------------
 
-- (void)toggleMicrophone:(id)sender
-{
-    [self.player pause];
-    
-    BOOL isOn = [(UISwitch*)sender isOn];
-    if (!isOn)
-    {
-        [self.microphone stopFetchingAudio];
-    }
-    else
-    {
-        [self.microphone startFetchingAudio];
-    }
-}
+
 
 //------------------------------------------------------------------------------
 
-- (void)toggleRecording:(id)sender
-{
-    [self.player pause];
-    if ([sender isOn])
-    {
-        //
-        // Create the recorder
-        //
-        [self.recordingAudioPlot clear];
-        [self.microphone startFetchingAudio];
-        self.recorder = [EZRecorder recorderWithURL:[self testFilePathURL]
-                                       clientFormat:[self.microphone audioStreamBasicDescription]
-                                           fileType:EZRecorderFileTypeM4A
-                                           delegate:self];
-        self.playButton.enabled = YES;
-    }
-    self.isRecording = (BOOL)[sender isOn];
-    self.recordingStateLabel.text = self.isRecording ? @"Recording" : @"Not Recording";
-}
 
-- (IBAction)recordButtonPressed:(id)sender {
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    [self.player pause];
-    
-    if (self.isRecording) {
+    // If user presses "Save" button
+    if (buttonIndex == 1) {
         
-        [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+        customFileName = [[alertView textFieldAtIndex:0] text];
+        
+        // Ensuring ".m4a" is appended to the filename only if it has to be
+        
+        NSRange range = [customFileName rangeOfString:@".m4a" options:NSCaseInsensitiveSearch];
+        
+        if ( !(range.location != NSNotFound &&
+            range.location + range.length == [customFileName length] ))
+        {
+            NSLog(@"%@ doesnt end with .m4a",customFileName);
+                    customFileName = [customFileName stringByAppendingString:(@".m4a")];
+        }
+        
+
+        NSLog(@"Audio File Name: %@" , customFileName);
+        
+        [self.fileNameTextField setText:customFileName];
         
     }
-    else{
-        
-        [self.recordButton setTitle:@"Recording ..." forState:UIControlStateNormal];
-        
-        //
-        // Create the recorder
-        //
-        [self.recordingAudioPlot clear];
-        [self.microphone startFetchingAudio];
-        self.recorder = [EZRecorder recorderWithURL:[self testFilePathURL]
-                                       clientFormat:[self.microphone audioStreamBasicDescription]
-                                           fileType:EZRecorderFileTypeM4A
-                                           delegate:self];
-        self.playButton.enabled = YES;
-    }
     
-    // Yeah, you toggle that Boolean
-    self.isRecording = !self.isRecording;
+    [self.microphone startFetchingAudio];
 }
 
 //------------------------------------------------------------------------------
@@ -271,8 +379,7 @@
 
 - (void)microphone:(EZMicrophone *)microphone changedPlayingState:(BOOL)isPlaying
 {
-    self.microphoneStateLabel.text = isPlaying ? @"Microphone On" : @"Microphone Off";
-    self.microphoneSwitch.on = isPlaying;
+
 }
 
 //------------------------------------------------------------------------------
@@ -292,6 +399,88 @@
         // All the audio plot needs is the buffer data (float*) and the size. Internally the audio plot will handle all the drawing related code, history management, and freeing its own resources. Hence, one badass line of code gets you a pretty plot :)
         [weakSelf.recordingAudioPlot updateBuffer:buffer[0]
                                    withBufferSize:bufferSize];
+        
+        //NSLog(@"Buffer Size: %u", (unsigned int)bufferSize);
+        
+        
+        // dB equation
+        dB = 20 * log10f(fabsf(*buffer[0]));
+        
+        // Measuring Peak dB
+        if (dB > peakdB){
+            peakdB = dB;
+            
+            if (self.isRecording){
+                // Here we are recording an impulse!
+                // Start Timing Now
+                startTime = CACurrentMediaTime();
+                recordingImpulse = YES;
+            }
+            
+        }
+        
+
+//            NSLog(@"Peak: %f" , peakdB);
+//            NSLog(@"Delta Y: %f" , deltaY);
+//            NSLog(@"Db: %f" , dB);
+        
+            // Calculating RMS
+        
+            count ++;
+        
+            accumulator = accumulator + powf(dB , 2.0);
+
+            rms = sqrtf((accumulator)/count);
+        
+            
+            if (recordingImpulse){
+                deltaY = peakdB - dB;
+                
+            if (deltaY >= 60)
+            {
+                // True RT60, Not likely to happen
+                elapsedTime = CACurrentMediaTime() - startTime;
+                
+                // Scaling Factor
+                rt60Approx = (deltaY/elapsedTime * 0.01);
+                NSLog(@"Time to decay 60 dB: %lf", rt60Approx);
+                
+                
+            }
+            else if (deltaY >= 30)
+                // Otherwise measure against noise floor?
+                elapsedTime = 2.0 * (CACurrentMediaTime() - startTime);
+                // Scaling Factor
+                rt60Approx = (deltaY/elapsedTime * 0.01);
+                NSLog(@"Time to decay 30 dB: %lf", rt60Approx);
+            
+            
+        }
+
+        // Update Peak dB and RMS labels
+         if (halfSecondElapsed){
+             
+            [self.dBLabel setText: [[NSNumber numberWithFloat:peakdB] stringValue]];
+             
+             [self.rmsLabel setText: [[NSNumber numberWithFloat:rms] stringValue]];
+             
+             halfSecondElapsed = !halfSecondElapsed;
+        }
+
+         //Clear Peak dB label after time interval
+        if(threesElapsed && !(self.isRecording)){
+
+            [self.dBLabel setText: [[NSNumber numberWithFloat:dB] stringValue]];
+            
+            peakdB = -INFINITY;
+            
+            NSLog(@"clear Peak %lf", dB);
+            
+            threesElapsed = !threesElapsed;
+        }
+
+        
+        //NSLog(@"Output: %f", dB);
     });
 }
 
@@ -323,11 +512,13 @@
 
 - (void)recorderUpdatedCurrentTime:(EZRecorder *)recorder
 {
-    __weak typeof (self) weakSelf = self;
-    NSString *formattedCurrentTime = [recorder formattedCurrentTime];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        weakSelf.playbackTimeLabel.text = formattedCurrentTime;
-    });
+    // We don't need to keep track of the current time
+    
+//    __weak typeof (self) weakSelf = self;
+//    NSString *formattedCurrentTime = [recorder formattedCurrentTime];
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        weakSelf.playbackTimeLabel.text = formattedCurrentTime;
+//    });
 }
 
 //------------------------------------------------------------------------------
@@ -353,10 +544,10 @@ withNumberOfChannels:(UInt32)numberOfChannels
     updatedPosition:(SInt64)framePosition
         inAudioFile:(EZAudioFile *)audioFile
 {
-    __weak typeof (self) weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        weakSelf.playbackTimeLabel.text = [audioPlayer formattedCurrentTime];
-    });
+//    __weak typeof (self) weakSelf = self;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        weakSelf.playbackTimeLabel.text = [audioPlayer formattedCurrentTime];
+//    });
 }
 
 //------------------------------------------------------------------------------
@@ -384,6 +575,72 @@ withNumberOfChannels:(UInt32)numberOfChannels
     return [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",
                                    [self applicationDocumentsDirectory],
                                    kAudioFilePath]];
+}
+
+- (NSURL *)customURL
+{
+
+    
+    return [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", [self applicationDocumentsDirectory], customFileName]];
+}
+
+- (void) animateReadyLabel {
+
+    
+//    while (![self.readyLabel isHidden])
+//         {
+    
+//            //NSLog(@"current time: %f", CACurrentMediaTime());
+//            
+//             float absSineValue = fabsf(sinf(2.0 * M_PI * counter));
+//             
+//             [self.readyLabel.alpha = absSineValue;
+//             
+//             //NSLog(@"%f",absSineValue);
+//
+        
+    
+             
+             [self.readyLabel setAlpha:0.0f];
+             
+             //fade in
+             [UIView animateWithDuration:0.5f animations:^{
+                 
+                 [self.readyLabel setAlpha:1.0f];
+                 
+             } completion:^(BOOL finished) {
+                 
+                 //fade out
+                 [UIView animateWithDuration:0.5f animations:^{
+                     
+                     [self.readyLabel setAlpha:0.0f];
+                     
+                 } completion:nil];
+                 
+             }];
+    
+}
+
+#pragma mark Helper Methods
+
+- (void) halfSecondTick {
+    //NSLog(@"One Second %@", halfSecondElapsed ? @"YES" : @"NO");
+    halfSecondElapsed = !halfSecondElapsed;
+}
+
+- (void) threeTick {
+    //NSLog(@"One Second %@", halfSecondElapsed ? @"YES" : @"NO");
+    threesElapsed = !threesElapsed;
+}
+
+
+- (void) sleepyTime{
+    sleep(1);
+    
+    // Back to grey color
+    [self.recordingAudioPlot clear];
+    self.recordingAudioPlot.color           = [UIColor colorWithRed:(30/255.0) green:(30/255.0) blue:(30/255.0) alpha:1.0];
+    [self.microphone startFetchingAudio];
 }
 
 @end
