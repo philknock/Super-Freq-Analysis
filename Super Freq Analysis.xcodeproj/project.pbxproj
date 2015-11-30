@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		220E0F571C0BE0E400C0A30C /* EZFFTPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E0F561C0BE0E400C0A30C /* EZFFTPlot.m */; };
+		250425230DBFBDC444E371D8 /* libPods-Super Freq Analysis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5AFD391E2A24009C48E257 /* libPods-Super Freq Analysis.a */; };
 		676C5F121BE2CCB10061FF4D /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 676C5EED1BE2CCB10061FF4D /* EZAudio.m */; };
 		676C5F131BE2CCB10061FF4D /* EZAudioDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 676C5EEF1BE2CCB10061FF4D /* EZAudioDevice.m */; };
 		676C5F141BE2CCB10061FF4D /* EZAudioDisplayLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 676C5EF11BE2CCB10061FF4D /* EZAudioDisplayLink.m */; };
@@ -52,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		220E0F561C0BE0E400C0A30C /* EZFFTPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZFFTPlot.m; sourceTree = "<group>"; };
+		220E0F581C0BE10600C0A30C /* EZFFTPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZFFTPlot.h; sourceTree = "<group>"; };
 		2A5AFD391E2A24009C48E257 /* libPods-Super Freq Analysis.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Super Freq Analysis.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60E5B9683EDC7DA1A5EAFC29 /* Pods-Super Freq Analysis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Super Freq Analysis.release.xcconfig"; path = "Pods/Target Support Files/Pods-Super Freq Analysis/Pods-Super Freq Analysis.release.xcconfig"; sourceTree = "<group>"; };
 		676C5EEC1BE2CCB10061FF4D /* EZAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudio.h; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 				676C5EFD1BE2CCB10061FF4D /* EZAudioPlayer.m */,
 				676C5EFE1BE2CCB10061FF4D /* EZAudioPlot.h */,
 				676C5EFF1BE2CCB10061FF4D /* EZAudioPlot.m */,
+				220E0F581C0BE10600C0A30C /* EZFFTPlot.h */,
+				220E0F561C0BE0E400C0A30C /* EZFFTPlot.m */,
 				676C5F001BE2CCB10061FF4D /* EZAudioPlotGL.h */,
 				676C5F011BE2CCB10061FF4D /* EZAudioPlotGL.m */,
 				676C5F021BE2CCB10061FF4D /* EZAudioUtilities.h */,
@@ -446,6 +452,7 @@
 				676C5F1D1BE2CCB10061FF4D /* EZMicrophone.m in Sources */,
 				67FCDD1E1BD7FCFB00B4CD94 /* main.m in Sources */,
 				676C5F261BE2D4470061FF4D /* FFTViewController.m in Sources */,
+				220E0F571C0BE0E400C0A30C /* EZFFTPlot.m in Sources */,
 				676C5F121BE2CCB10061FF4D /* EZAudio.m in Sources */,
 				676C5F221BE2CCB10061FF4D /* TPCircularBuffer.c in Sources */,
 				676C5F171BE2CCB10061FF4D /* EZAudioFloatConverter.m in Sources */,
