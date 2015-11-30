@@ -49,6 +49,7 @@ FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
 #import "EZPlot.h"
 #import "EZAudioDisplayLink.h"
 #import "EZAudioPlot.h"
+#import "EZFFTPlot.h"
 #import "EZAudioPlotGL.h"
 
 //------------------------------------------------------------------------------

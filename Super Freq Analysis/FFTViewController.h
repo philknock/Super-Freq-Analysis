@@ -42,7 +42,7 @@
 /**
  EZAudioPlot for frequency plot
  */
-@property (nonatomic,weak) IBOutlet EZAudioPlot *audioPlotFreq;
+@property (nonatomic,weak) IBOutlet EZFFTPlot *audioPlotFreq;
 
 /**
  EZAudioPlot for time plot

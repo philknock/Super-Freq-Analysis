@@ -1,5 +1,5 @@
 //
-//  EZAudioPlot.m
+//  EZFFTPlot.m
 //  EZAudio
 //
 //  Created by Syed Haris Ali on 9/2/13.
@@ -23,22 +23,22 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import "EZAudioPlot.h"
+#import "EZFFTPlot.h"
 
 //------------------------------------------------------------------------------
 #pragma mark - Constants
 //------------------------------------------------------------------------------
 
-UInt32 const kEZAudioPlotMaxHistoryBufferLength = 8192;
-UInt32 const kEZAudioPlotDefaultHistoryBufferLength = 512;
-UInt32 const EZAudioPlotDefaultHistoryBufferLength = 512;
-UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
+UInt32 const kEZFFTPlotMaxHistoryBufferLength = 8192;
+UInt32 const kEZFFTPlotDefaultHistoryBufferLength = 512;
+UInt32 const EZFFTPlotDefaultHistoryBufferLength = 512;
+UInt32 const EZFFTPlotDefaultMaxHistoryBufferLength = 8192;
 
 //------------------------------------------------------------------------------
-#pragma mark - EZAudioPlot (Implementation)
+#pragma mark - EZFFTPlot (Implementation)
 //------------------------------------------------------------------------------
 
-@implementation EZAudioPlot
+@implementation EZFFTPlot
 
 //------------------------------------------------------------------------------
 #pragma mark - Dealloc
@@ -117,12 +117,12 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     self.gain = 1.0;
     self.plotType = EZPlotTypeBuffer;
     self.shouldMirror = NO;
-    self.shouldFill = NO;
+    self.shouldFill = YES;
     
     // Setup history window
     [self resetHistoryBuffers];
     
-    self.waveformLayer = [EZAudioPlotWaveformLayer layer];
+    self.waveformLayer = [EZFFTPlotWaveformLayer layer];
     self.waveformLayer.frame = self.bounds;
     self.waveformLayer.lineWidth = 1.0f;
     self.waveformLayer.fillColor = nil;
@@ -144,7 +144,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     //
     [self setupPlot];
     
-    self.points = calloc(EZAudioPlotDefaultMaxHistoryBufferLength, sizeof(CGPoint));
+    self.points = calloc(EZFFTPlotDefaultMaxHistoryBufferLength, sizeof(CGPoint));
     self.pointCount = [self initialPointCount];
     [self redraw];
 }
@@ -271,7 +271,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     if (pointCount > 0)
     {
         path = CGPathCreateMutable();
-        double xscale = (rect.size.width) / ((float)self.pointCount);
+        double xscale = 4 * ((rect.size.width) / (float)self.pointCount);
         double halfHeight = floor(rect.size.height / 2.0);
         int deviceOriginFlipped = [self isDeviceOriginFlipped] ? -1 : 1;
         CGAffineTransform xf = CGAffineTransformIdentity;
@@ -370,7 +370,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 
 - (int)setRollingHistoryLength:(int)historyLength
 {
-    self.historyInfo->bufferSize = MIN(EZAudioPlotDefaultMaxHistoryBufferLength, historyLength);
+    self.historyInfo->bufferSize = MIN(EZFFTPlotDefaultMaxHistoryBufferLength, historyLength);
     return self.historyInfo->bufferSize;
 }
 
@@ -380,7 +380,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 
 - (int)defaultRollingHistoryLength
 {
-    return EZAudioPlotDefaultHistoryBufferLength;
+    return EZFFTPlotDefaultHistoryBufferLength;
 }
 
 //------------------------------------------------------------------------------
@@ -394,7 +394,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 
 - (int)maximumRollingHistoryLength
 {
-    return EZAudioPlotDefaultMaxHistoryBufferLength;
+    return EZFFTPlotDefaultMaxHistoryBufferLength;
 }
 
 //------------------------------------------------------------------------------
@@ -425,10 +425,10 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 @end
 
 ////------------------------------------------------------------------------------
-#pragma mark - EZAudioPlotWaveformLayer (Implementation)
+#pragma mark - EZFFTPlotWaveformLayer (Implementation)
 ////------------------------------------------------------------------------------
 
-@implementation EZAudioPlotWaveformLayer
+@implementation EZFFTPlotWaveformLayer
 
 - (id<CAAction>)actionForKey:(NSString *)event
 {

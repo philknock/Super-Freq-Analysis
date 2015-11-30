@@ -25,7 +25,7 @@
 
 #import "FFTViewController.h"
 
-static vDSP_Length const FFTViewControllerFFTWindowSize = 4096;
+static vDSP_Length const FFTViewControllerFFTWindowSize = 256;
 
 @implementation FFTViewController
 
@@ -47,6 +47,9 @@ int bufferRollingValue;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIColor *defaultRed = [UIColor colorWithRed:(223/255.0) green:(53/255.0) blue:(53/255.0) alpha:1.0];
+    [[UITabBar appearance] setTintColor:defaultRed];
     
     //
     // Setup the AVAudioSession. EZMicrophone will not work properly on iOS
@@ -81,11 +84,11 @@ int bufferRollingValue;
     
     self.audioPlotTime.plotType = EZPlotTypeBuffer;
     self.audioPlotTime.shouldMirror = YES;
+    self.audioPlotTime.shouldFill = YES;
     
     self.audioPlotTime.color = [UIColor colorWithRed:(223/255.0) green:(53/255.0) blue:(53/255.0) alpha:1.0];
     
     self.maxFrequencyLabel.numberOfLines = 0;
-    //[self.audioPlotTime setGain:50.0];
     
     //
     // Setup frequency domain audio plot
@@ -93,7 +96,7 @@ int bufferRollingValue;
     self.audioPlotFreq.shouldFill = YES;
     self.audioPlotFreq.plotType = EZPlotTypeBuffer;
     self.audioPlotFreq.shouldCenterYAxis = NO;
-    
+    self.audioPlotFreq.clipsToBounds = YES;
     
     self.audioPlotFreq.color = [UIColor colorWithRed:(223/255.0) green:(53/255.0) blue:(53/255.0) alpha:1.0];
     
